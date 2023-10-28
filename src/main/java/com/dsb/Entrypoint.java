@@ -1,13 +1,14 @@
 package com.dsb;
 
+import com.dsb.console.DsbConsoleMain;
 import com.dsb.gui.DsbGUIAppMain;
 
 public class Entrypoint {
     public static void main(String[] args) {
-        if (true) {
-            DsbGUIAppMain.main(new String[0]);
+        if (args.length == 0) {
+            DsbGUIAppMain.main(args);
         } else {
-            System.out.println("Starting non-GUI...");
+            DsbConsoleMain.main(args);
         }
     }
 }
