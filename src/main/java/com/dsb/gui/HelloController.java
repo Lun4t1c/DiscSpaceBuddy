@@ -1,4 +1,4 @@
-package com.dsb.discspacebuddy.gui;
+package com.dsb.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

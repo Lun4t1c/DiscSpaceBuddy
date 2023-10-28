@@ -1,6 +1,6 @@
-package com.dsb.discspacebuddy;
+package com.dsb;
 
-import com.dsb.discspacebuddy.gui.DsbGUIAppMain;
+import com.dsb.gui.DsbGUIAppMain;
 
 public class Entrypoint {
     public static void main(String[] args) {
