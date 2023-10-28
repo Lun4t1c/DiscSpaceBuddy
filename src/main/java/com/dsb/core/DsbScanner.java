@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DsbScanner {
+    public List<Path> Directories = new LinkedList<>();
+
     public DsbScanner() {
         performScan();
     }
@@ -17,6 +19,8 @@ public class DsbScanner {
             System.out.println("Found disc: " + disc + " - scanning...");
             ScanDirectory(disc.toString());
         }
+
+        System.out.println("Scanning done.");
     }
 
     private void ScanDirectory(String path) {
@@ -26,6 +30,7 @@ public class DsbScanner {
             for (Path subfolder : subfolders) {
                 if (java.nio.file.Files.isDirectory(subfolder)) {
                     System.out.println("Subfolder: " + subfolder);
+                    Directories.add(subfolder);
                     //ScanDirectory(subfolder.toString());
                 }
             }
