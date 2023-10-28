@@ -1,8 +1,8 @@
-module com.dsb.discspacebuddy {
+module com.dsb.discspacebuddy.gui {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.dsb.discspacebuddy to javafx.fxml;
-    exports com.dsb.discspacebuddy;
+    exports com.dsb.discspacebuddy.gui;
+    opens com.dsb.discspacebuddy.gui to javafx.fxml;
 }
