@@ -4,6 +4,7 @@ import com.dsb.core.DsbScanner;
 
 import java.util.concurrent.CompletableFuture;
 
+import com.dsb.core.models.DirectoryModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
@@ -35,14 +36,14 @@ public class MainController {
 
                 rootItem.getChildren().add(discTreeItem);
 
-                for (Path path : dsbScanner.Directories) {
-                    if (!path.startsWith(disc.toString()))
+                for (DirectoryModel directory : dsbScanner.Directories) {
+                    if (!directory.getPath().startsWith(disc.toString()))
                         continue;
 
-                    String directoryName = path.toString().substring(3);
+                    String directoryName = directory.getPath().toString().substring(3);
                     TreeItem<String> item = new TreeItem<>(directoryName);
 
-                    if (path.startsWith(disc.toString()))
+                    if (directory.getPath().startsWith(disc.toString()))
                         discTreeItem.getChildren().add(item);
                 }
             }

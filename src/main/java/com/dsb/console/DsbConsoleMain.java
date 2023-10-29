@@ -1,6 +1,7 @@
 package com.dsb.console;
 
 import com.dsb.core.DsbScanner;
+import com.dsb.core.models.DirectoryModel;
 import com.dsb.gui.DsbGUIAppMain;
 
 import java.io.IOException;
@@ -47,6 +48,9 @@ public class DsbConsoleMain {
         try {
             dsbScanner.performFullScan().get();
             System.out.printf("Done scanning (found %d folders)%n", dsbScanner.Directories.size());
+            for (DirectoryModel directory : dsbScanner.Directories) {
+                System.out.printf("%s - %s\n", directory.getPath().toString(), Utils.normalizeBytesSize(directory.getSize()));
+            }
         } catch (InterruptedException exc) {
             System.err.println("Scan interrupted: ");
             exc.printStackTrace();
