@@ -8,7 +8,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class DsbScanner {
-    public List<Path> Discs = new LinkedList<>();
+    public List<Path> Discs = new ArrayList<>();
     public List<Path> Directories = new ArrayList<>();
     List<CompletableFuture<Void>> taskList = new ArrayList<>();
 
