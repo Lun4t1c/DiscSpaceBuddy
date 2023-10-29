@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DsbScanner {
+    public List<Path> Discs = new LinkedList<>();
     public List<Path> Directories = new LinkedList<>();
 
     public DsbScanner() {
@@ -17,6 +18,7 @@ public class DsbScanner {
 
         for (Path disc : filesystem.getRootDirectories()) {
             System.out.println("Found disc: " + disc + " - scanning...");
+            Discs.add(disc);
             ScanDirectory(disc.toString());
         }
 
