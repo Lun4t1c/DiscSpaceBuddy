@@ -21,7 +21,7 @@ public class MainController {
     protected void onUpdateButtonClick() {
         DsbScanner dsbScanner = new DsbScanner();
         try {
-            CompletableFuture<Void> scanFuture = dsbScanner.performScan();
+            CompletableFuture<Void> scanFuture = dsbScanner.performFullScan();
             scanFuture.get();
 
             TreeView<String> tree = this.tree;

@@ -1,29 +1,40 @@
 package com.dsb.console;
 
 import com.dsb.core.DsbScanner;
+import com.dsb.gui.DsbGUIAppMain;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class DsbConsoleMain {
+    static DsbScanner dsbScanner;
+
     public static void main(String[] args) {
-        DsbScanner dsbScanner = new DsbScanner();
+        dsbScanner = new DsbScanner();
         Scanner scanner = new Scanner(System.in);
 
         char choice;
 
         boolean b = true;
 
-        printSplashScreen();
+        CLIHelpers.printResourceFile(ResourceFilesEnum.SPLASH);
 
         while (b) {
-            printMenu();
+            CLIHelpers.printMenu();
             choice = scanner.next().charAt(0);
             switch (choice) {
                 case 's':
-                    dsbScanner.performScan();
+                    performFullScan();
                     break;
                 case 'q':
                     b = false;
+                    break;
+                case '?':
+                    CLIHelpers.printResourceFile(ResourceFilesEnum.HELP);
                     break;
                 default:
                     System.err.println("Undefined command, maggot :D...");
@@ -32,25 +43,17 @@ public class DsbConsoleMain {
         }
     }
 
-    public static void printSplashScreen() {
-        System.out.println(
-                """
-                        ==============================
-                        "        DiskSpaceBuddy      "
-                        ==============================
-                        """
-        );
-    }
-
-    public static void printMenu() {
-        System.out.println(
-                """
-                        ==============================
-                        "      Press 's' to scan     "
-                        "      Press 'q' to exit     "
-                        "      Press '?' for help    "
-                        ==============================
-                        """
-        );
+    private static void performFullScan() {
+        try {
+            dsbScanner.performFullScan().get();
+            System.out.printf("Done scanning (found %d folders)%n", dsbScanner.Directories.size());
+        } catch (InterruptedException exc) {
+            System.err.println("Scan interrupted: ");
+            exc.printStackTrace();
+        }
+        catch (ExecutionException exc) {
+            System.err.println("ERROR: ");
+            exc.printStackTrace();
+        }
     }
 }
