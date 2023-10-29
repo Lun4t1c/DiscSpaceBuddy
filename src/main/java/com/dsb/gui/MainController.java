@@ -1,6 +1,7 @@
 package com.dsb.gui;
 
 import com.dsb.core.DsbScanner;
+
 import java.util.concurrent.CompletableFuture;
 
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ public class MainController {
     public TreeView<String> tree;
 
     @FXML
-    protected void onUpdateButtonClick(){
+    protected void onUpdateButtonClick() {
         DsbScanner dsbScanner = new DsbScanner();
         try {
             CompletableFuture<Void> scanFuture = dsbScanner.performScan();
@@ -28,14 +29,14 @@ public class MainController {
             TreeItem<String> rootItem = new TreeItem<>("Discs");
             rootItem.setExpanded(true);
 
-            for(Path disc : dsbScanner.Discs) {
-                String diskLetter = disc.toString().substring(0,2);
+            for (Path disc : dsbScanner.Discs) {
+                String diskLetter = disc.toString().substring(0, 2);
                 TreeItem<String> discTreeItem = new TreeItem<>(diskLetter);
 
                 rootItem.getChildren().add(discTreeItem);
 
-                for(Path path : dsbScanner.Directories) {
-                    if(!path.startsWith(disc.toString()))
+                for (Path path : dsbScanner.Directories) {
+                    if (!path.startsWith(disc.toString()))
                         continue;
 
                     String directoryName = path.toString().substring(3);
@@ -46,7 +47,7 @@ public class MainController {
                 }
             }
             tree.setRoot(rootItem);
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Blad mordo");
         }
     }
