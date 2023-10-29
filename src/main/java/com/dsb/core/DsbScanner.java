@@ -2,12 +2,15 @@ package com.dsb.core;
 
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class DsbScanner {
     public List<Path> Discs = new LinkedList<>();
-    public List<Path> Directories = new LinkedList<>();
+    public List<Path> Directories = new ArrayList<>();
+    List<CompletableFuture<Void>> taskList = new ArrayList<>();
 
     public DsbScanner() {
         performScan();
