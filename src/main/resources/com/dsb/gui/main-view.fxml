@@ -3,13 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-           minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dsb.gui.MainController">
+<SplitPane dividerPositions="0.4147727272727272" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dsb.gui.MainController">
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-        <Button fx:id="updateTreeButton" layoutX="62.0" layoutY="299.0" mnemonicParsing="false"
-                onAction="#onUpdateButtonClick" text="Update Tree"/>
-        <TreeView fx:id="tree" layoutX="-1.0" prefHeight="229.0" prefWidth="175.0"/>
+        <VBox prefHeight="398.0">
+            <TreeView fx:id="tree" editable="true"/>
+            <Button fx:id="updateTreeButton" mnemonicParsing="false" onAction="#onUpdateButtonClick"
+                    text="Update Tree"/>
+        </VBox>
     </AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0"/>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
 </SplitPane>

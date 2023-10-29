@@ -23,18 +23,20 @@ public class MainController {
         rootItem.setExpanded(true);
 
         for(Path disc : dsbScanner.Discs) {
-            TreeItem<String> discTreeItem = new TreeItem<>(disc.toString().substring(0,2));
+            String diskLetter = disc.toString().substring(0,2);
+            TreeItem<String> discTreeItem = new TreeItem<>(diskLetter);
+
             rootItem.getChildren().add(discTreeItem);
+
             for(Path path : dsbScanner.Directories) {
                 if(!path.startsWith(disc.toString()))
                     continue;
 
-                String pathString = path.toString().substring(3);
-                TreeItem<String> item = new TreeItem<>(pathString);
+                String directoryName = path.toString().substring(3);
+                TreeItem<String> item = new TreeItem<>(directoryName);
 
-                if (path.startsWith(disc.toString())){
+                if (path.startsWith(disc.toString()))
                     discTreeItem.getChildren().add(item);
-                }
             }
         }
         tree.setRoot(rootItem);
