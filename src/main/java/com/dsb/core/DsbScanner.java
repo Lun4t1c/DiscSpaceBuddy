@@ -8,8 +8,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class DsbScanner {
-    public List<Path> Directories = new ArrayList<>();
     List<CompletableFuture<Void>> taskList = new ArrayList<>();
+    public List<Path> Discs = new ArrayList<>();
+    public List<Path> Directories = new ArrayList<>();
 
     public DsbScanner() {
         performScan();
@@ -20,6 +21,8 @@ public class DsbScanner {
 
         for (Path disc : filesystem.getRootDirectories()) {
             System.out.println("Found disc: " + disc + " - scanning...");
+            Discs.add(disc);
+            ScanDirectory(disc.toString());
             taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(disc.toString())));
         }
         CompletableFuture<Void> allOf = CompletableFuture.allOf(taskList.toArray(new CompletableFuture[0]));
