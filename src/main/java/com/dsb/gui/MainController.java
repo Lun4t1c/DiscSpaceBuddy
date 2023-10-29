@@ -1,6 +1,8 @@
 package com.dsb.gui;
 
 import com.dsb.core.DsbScanner;
+import java.util.concurrent.CompletableFuture;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
@@ -17,28 +19,35 @@ public class MainController {
     @FXML
     protected void onUpdateButtonClick(){
         DsbScanner dsbScanner = new DsbScanner();
-        TreeView<String> tree = this.tree;
+        try {
+            CompletableFuture<Void> scanFuture = dsbScanner.performScan();
+            scanFuture.get();
 
-        TreeItem<String> rootItem = new TreeItem<>("Discs");
-        rootItem.setExpanded(true);
+            TreeView<String> tree = this.tree;
 
-        for(Path disc : dsbScanner.Discs) {
-            String diskLetter = disc.toString().substring(0,2);
-            TreeItem<String> discTreeItem = new TreeItem<>(diskLetter);
+            TreeItem<String> rootItem = new TreeItem<>("Discs");
+            rootItem.setExpanded(true);
 
-            rootItem.getChildren().add(discTreeItem);
+            for(Path disc : dsbScanner.Discs) {
+                String diskLetter = disc.toString().substring(0,2);
+                TreeItem<String> discTreeItem = new TreeItem<>(diskLetter);
 
-            for(Path path : dsbScanner.Directories) {
-                if(!path.startsWith(disc.toString()))
-                    continue;
+                rootItem.getChildren().add(discTreeItem);
 
-                String directoryName = path.toString().substring(3);
-                TreeItem<String> item = new TreeItem<>(directoryName);
+                for(Path path : dsbScanner.Directories) {
+                    if(!path.startsWith(disc.toString()))
+                        continue;
 
-                if (path.startsWith(disc.toString()))
-                    discTreeItem.getChildren().add(item);
+                    String directoryName = path.toString().substring(3);
+                    TreeItem<String> item = new TreeItem<>(directoryName);
+
+                    if (path.startsWith(disc.toString()))
+                        discTreeItem.getChildren().add(item);
+                }
             }
+            tree.setRoot(rootItem);
+        }catch (Exception e) {
+            System.out.println("Blad mordo");
         }
-        tree.setRoot(rootItem);
     }
 }

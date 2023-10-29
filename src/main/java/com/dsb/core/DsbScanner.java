@@ -13,27 +13,19 @@ public class DsbScanner {
     public List<Path> Directories = new ArrayList<>();
 
     public DsbScanner() {
-        performScan();
+
     }
 
-    public void performScan() {
+    public CompletableFuture<Void> performScan() {
         FileSystem filesystem = FileSystems.getDefault();
+        List<CompletableFuture<Void>> taskList = new ArrayList<>();
 
         for (Path disc : filesystem.getRootDirectories()) {
-            System.out.println("Found disc: " + disc + " - scanning...");
             Discs.add(disc);
-            ScanDirectory(disc.toString());
             taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(disc.toString())));
         }
-        CompletableFuture<Void> allOf = CompletableFuture.allOf(taskList.toArray(new CompletableFuture[0]));
 
-        try {
-            allOf.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("\nScanning done. (found " + Directories.size() + " directories.)");
+        return CompletableFuture.allOf(taskList.toArray(new CompletableFuture[0]));
     }
 
     private void ScanDirectory(String path) {
