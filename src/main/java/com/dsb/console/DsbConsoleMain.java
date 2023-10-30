@@ -1,6 +1,7 @@
 package com.dsb.console;
 
 import com.dsb.core.DsbScanner;
+import com.dsb.core.StartingArgsContext;
 import com.dsb.core.models.DirectoryModel;
 import com.dsb.core.models.FileModel;
 
@@ -12,7 +13,7 @@ public class DsbConsoleMain {
     static DsbScanner dsbScanner;
     static Scanner scanner;
 
-    public static void main(String[] args) {
+    public static void main(StartingArgsContext startingArgs) {
         dsbScanner = new DsbScanner();
         scanner = new Scanner(System.in);
 
