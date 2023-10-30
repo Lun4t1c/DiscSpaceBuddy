@@ -2,21 +2,19 @@ package com.dsb.console;
 
 import com.dsb.core.DsbScanner;
 import com.dsb.core.models.DirectoryModel;
-import com.dsb.gui.DsbGUIAppMain;
+import com.dsb.core.models.FileModel;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
 public class DsbConsoleMain {
     static DsbScanner dsbScanner;
+    static Scanner scanner;
 
     public static void main(String[] args) {
         dsbScanner = new DsbScanner();
-        Scanner scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
 
         char choice;
 
@@ -47,10 +45,9 @@ public class DsbConsoleMain {
     private static void performFullScan() {
         try {
             dsbScanner.performFullScan().get();
-            System.out.printf("Done scanning (found %d folders)%n", dsbScanner.Directories.size());
-            for (DirectoryModel directory : dsbScanner.Directories) {
-                System.out.printf("%s - %s\n", directory.getPath().toString(), Utils.normalizeBytesSize(directory.getSize()));
-            }
+            System.out.printf("Done scanning (found %d files in %d folders)%n", dsbScanner.FilesList.size(), dsbScanner.DirectoriesList.size());
+            System.out.print("Press ENTER to continue...");
+            System.in.read();
         } catch (InterruptedException exc) {
             System.err.println("Scan interrupted: ");
             exc.printStackTrace();
@@ -58,6 +55,8 @@ public class DsbConsoleMain {
         catch (ExecutionException exc) {
             System.err.println("ERROR: ");
             exc.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

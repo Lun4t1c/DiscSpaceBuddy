@@ -30,9 +30,8 @@ public class Utils {
             }
 
             return number + " KB";
+        } else {
+            return bytesSize + " B";
         }
-
-
-        return "";
     }
 }

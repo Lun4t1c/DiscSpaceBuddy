@@ -30,13 +30,13 @@ public class MainController {
             TreeItem<String> rootItem = new TreeItem<>("Discs");
             rootItem.setExpanded(true);
 
-            for (Path disc : dsbScanner.Discs) {
+            for (Path disc : dsbScanner.DiscsList) {
                 String diskLetter = disc.toString().substring(0, 2);
                 TreeItem<String> discTreeItem = new TreeItem<>(diskLetter);
 
                 rootItem.getChildren().add(discTreeItem);
 
-                for (DirectoryModel directory : dsbScanner.Directories) {
+                for (DirectoryModel directory : dsbScanner.DirectoriesList) {
                     if (!directory.getPath().startsWith(disc.toString()))
                         continue;
 
@@ -49,6 +49,7 @@ public class MainController {
             }
             tree.setRoot(rootItem);
         } catch (Exception e) {
+            // TODO Notify user about error in GUI
             System.out.println("Blad mordo");
         }
     }
