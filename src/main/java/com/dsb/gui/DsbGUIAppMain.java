@@ -1,5 +1,6 @@
 package com.dsb.gui;
 
+import com.dsb.core.StartingArgsContext;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +19,7 @@ public class DsbGUIAppMain extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(StartingArgsContext startingArgs) {
         launch();
     }
 }
