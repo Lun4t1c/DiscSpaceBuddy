@@ -51,6 +51,7 @@ public class MainController {
         } catch (Exception e) {
             // TODO Notify user about error in GUI
             System.out.println("Blad mordo");
+            e.printStackTrace();
         }
     }
 }
