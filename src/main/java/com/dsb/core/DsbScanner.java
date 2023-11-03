@@ -13,9 +13,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class DsbScanner {
-    public List<Path> DiscsList = new ArrayList<>();
-    public List<DirectoryModel> DirectoriesList = new ArrayList<>();
-    public List<FileModel> FilesList = new ArrayList<>();
+    public final List<Path> DiscsList = new ArrayList<>();
+    public final List<DirectoryModel> DirectoriesList = new ArrayList<>();
+    public final List<FileModel> FilesList = new ArrayList<>();
 
     public DsbScanner() {
 
@@ -44,15 +44,15 @@ public class DsbScanner {
         Path path = Paths.get(pathString);
         DirectoryModel newDirectory = new DirectoryModel(path, 0);
 
-        try (DirectoryStream<Path> subfolders = java.nio.file.Files.newDirectoryStream(path)) {
-            for (Path subfolder : subfolders) {
-                if (java.nio.file.Files.isRegularFile(subfolder)) {
-                    BasicFileAttributes attributes = Files.readAttributes(subfolder, BasicFileAttributes.class);
-                    FilesList.add(new FileModel(subfolder, attributes.size()));
+        try (DirectoryStream<Path> subdirectories = java.nio.file.Files.newDirectoryStream(path)) {
+            for (Path subdirectory : subdirectories) {
+                if (java.nio.file.Files.isRegularFile(subdirectory)) {
+                    BasicFileAttributes attributes = Files.readAttributes(subdirectory, BasicFileAttributes.class);
+                    FilesList.add(new FileModel(subdirectory, attributes.size()));
                     newDirectory.setSize(newDirectory.getSize() + attributes.size());
-                } else if (java.nio.file.Files.isDirectory(subfolder)) {
+                } else if (java.nio.file.Files.isDirectory(subdirectory)) {
                     if (isRecursive) {
-                        taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(subfolder.toString(), true)));
+                        taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(subdirectory.toString(), true)));
                     }
                 }
             }
