@@ -3,6 +3,7 @@ package com.dsb.core;
 import com.dsb.core.models.DirectoryModel;
 import com.dsb.core.models.FileModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -27,6 +28,12 @@ public class DsbScanner {
         for (Path disc : filesystem.getRootDirectories()) {
             DiscsList.add(disc);
             taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(disc.toString(), false)));
+
+            for (File file : new File(disc.toUri()).listFiles()) {
+                if (file.isDirectory()) {
+                    taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(file.getPath(), false)));
+                }
+            }
         }
 
         return CompletableFuture.allOf(taskList.toArray(new CompletableFuture[0]));
@@ -43,8 +50,7 @@ public class DsbScanner {
                     BasicFileAttributes attributes = Files.readAttributes(subfolder, BasicFileAttributes.class);
                     FilesList.add(new FileModel(subfolder, attributes.size()));
                     newDirectory.setSize(newDirectory.getSize() + attributes.size());
-                }
-                else if (java.nio.file.Files.isDirectory(subfolder)) {
+                } else if (java.nio.file.Files.isDirectory(subfolder)) {
                     if (isRecursive) {
                         taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(subfolder.toString(), true)));
                     }
@@ -58,6 +64,8 @@ public class DsbScanner {
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
+        } catch (AccessDeniedException exc) {
+            System.err.println("Access denied: " + pathString);
         } catch (IOException e) {
             e.printStackTrace();
         }
