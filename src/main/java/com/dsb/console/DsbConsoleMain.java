@@ -46,16 +46,15 @@ public class DsbConsoleMain {
             dsbScanner.performFullScan().get();
             System.out.printf("Done scanning (found %d files in %d folders)%n", dsbScanner.FilesList.size(), dsbScanner.DirectoriesList.size());
             System.out.print("Press ENTER to continue...");
-            System.in.read();
-        } catch (InterruptedException exc) {
+            int x = System.in.read();
+        } catch (InterruptedException e) {
             System.err.println("Scan interrupted: ");
-            exc.printStackTrace();
         }
-        catch (ExecutionException exc) {
+        catch (ExecutionException e) {
             System.err.println("ERROR: ");
-            exc.printStackTrace();
+            System.err.println("DsbConsoleMain have thrown ExecutionException, xDddd...");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("DsbConsoleMain have thrown IOException, xDddd...");
         }
     }
 }

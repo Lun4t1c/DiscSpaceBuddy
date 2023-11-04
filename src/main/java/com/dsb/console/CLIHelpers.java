@@ -5,16 +5,20 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 public class CLIHelpers {
     public static void printResourceFile(ResourceFilesEnum resourceFile) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get(DsbConsoleMain.class.getResource(resourceFile.getResourceName()).toURI()));
+            List<String> lines = Files.readAllLines(Paths.get(Objects.requireNonNull(DsbConsoleMain.class.getResource(resourceFile.getResourceName())).toURI()));
             for (String line : lines) {
                 System.out.println(line);
             }
-        } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("CLI Helpers have thrown IOException, xDddd...");
+        }
+        catch (URISyntaxException e){
+            System.err.println("CLI Helpers have thrown URISyntaxException, xDddd...");
         }
     }
 

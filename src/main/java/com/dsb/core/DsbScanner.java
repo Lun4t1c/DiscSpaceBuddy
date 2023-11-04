@@ -9,6 +9,7 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -29,7 +30,7 @@ public class DsbScanner {
             DiscsList.add(disc);
             taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(disc.toString(), false)));
 
-            for (File file : new File(disc.toUri()).listFiles()) {
+            for (File file : Objects.requireNonNull(new File(disc.toUri()).listFiles())) {
                 if (file.isDirectory()) {
                     taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(file.getPath(), false)));
                 }
@@ -61,13 +62,13 @@ public class DsbScanner {
             CompletableFuture<Void> allOf = CompletableFuture.allOf(taskList.toArray(new CompletableFuture[0]));
             try {
                 allOf.get();
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
+            } catch (InterruptedException | ExecutionException e){
+                System.err.println("Scanning was interrupted, xDddd...");
             }
-        } catch (AccessDeniedException exc) {
+        } catch (AccessDeniedException e) {
             System.err.println("Access denied: " + pathString);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("DsbScanner have thrown ExecutionException, xDddd...");
         }
     }
 }
