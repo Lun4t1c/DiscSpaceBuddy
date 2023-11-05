@@ -46,6 +46,10 @@ public class DsbConsoleMain {
     private static void performFullScan() {
         try {
             dsbScanner.performFullScan().get();
+            for (DirectoryModel dir : dsbScanner.DirectoriesList) {
+                System.out.println(dir.getPath() + " - " + Utils.normalizeBytesSize(dir.getSize()));
+            }
+
             System.out.printf("Done scanning (found %d files in %d folders)%n", dsbScanner.FilesList.size(), dsbScanner.DirectoriesList.size());
             System.out.print("Press ENTER to continue...");
             System.in.read();

@@ -6,32 +6,16 @@ public class Utils {
     private static final int BYTES_IN_KB = 1_024;
 
     public static String normalizeBytesSize(long s) {
-        long number = 0;
-        long bytesSize = s;
+        double bytesSize = (double) s;
+        String[] units = {"B", "KB", "MB", "GB"};
 
-        if (bytesSize >= BYTES_IN_GB) {
-            while (bytesSize > BYTES_IN_GB) {
-                number++;
-                bytesSize -= BYTES_IN_GB;
-            }
+        int unitIndex = 0;
 
-            return number + " GB";
-        } else if (bytesSize >= BYTES_IN_MB) {
-            while (bytesSize > BYTES_IN_MB) {
-                number++;
-                bytesSize -= BYTES_IN_MB;
-            }
-
-            return number + " MB";
-        } else if (bytesSize >= BYTES_IN_KB) {
-            while (bytesSize > BYTES_IN_KB) {
-                number++;
-                bytesSize -= BYTES_IN_KB;
-            }
-
-            return number + " KB";
-        } else {
-            return bytesSize + " B";
+        while (bytesSize >= 1024.0 && unitIndex < units.length - 1) {
+            bytesSize /= 1024.0;
+            unitIndex++;
         }
+
+        return String.format("%.2f %s", bytesSize, units[unitIndex]);
     }
 }
