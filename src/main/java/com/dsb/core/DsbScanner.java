@@ -64,11 +64,14 @@ public class DsbScanner {
                 allOf.get();
             } catch (InterruptedException | ExecutionException e){
                 System.err.println("Scanning was interrupted, xDddd...");
+                e.printStackTrace();
             }
         } catch (AccessDeniedException e) {
             System.err.println("Access denied: " + pathString);
+            e.printStackTrace();
         } catch (IOException e) {
             System.err.println("DsbScanner have thrown ExecutionException, xDddd...");
+            e.printStackTrace();
         }
     }
 }

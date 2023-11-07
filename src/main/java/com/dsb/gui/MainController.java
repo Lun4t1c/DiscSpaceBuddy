@@ -50,8 +50,9 @@ public class MainController {
             tree.setRoot(rootItem);
         } catch (Exception e) {
             // TODO Notify user about error in GUI
-            System.out.println("Blad mordo");
-            System.out.println("Something not right with mainController, xDdddd...");
+            System.err.println("Blad mordo");
+            System.err.println("Something not right with mainController, xDdddd...");
+            e.printStackTrace();
         }
     }
 }

@@ -49,12 +49,15 @@ public class DsbConsoleMain {
             int x = System.in.read();
         } catch (InterruptedException e) {
             System.err.println("Scan interrupted: ");
+            e.printStackTrace();
         }
         catch (ExecutionException e) {
             System.err.println("ERROR: ");
             System.err.println("DsbConsoleMain have thrown ExecutionException, xDddd...");
+            e.printStackTrace();
         } catch (IOException e) {
             System.err.println("DsbConsoleMain have thrown IOException, xDddd...");
+            e.printStackTrace();
         }
     }
 }
