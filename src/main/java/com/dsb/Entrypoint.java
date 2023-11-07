@@ -9,20 +9,24 @@ public class Entrypoint {
         StartingArgsContext startingArgs = parseArgs(args);
 
         if (startingArgs.isGUI) {
-            DsbGUIAppMain.main(startingArgs);
+            DsbGUIAppMain.mainLoop(startingArgs);
         } else {
-            DsbConsoleMain.main(startingArgs);
+            DsbConsoleMain.mainLoop(startingArgs);
         }
     }
 
     private static StartingArgsContext parseArgs(String[] args) {
         StartingArgsContext startingArgs = new StartingArgsContext();
-        if (args.length == 0) return  startingArgs;
 
-        for (int i = 0; i < args.length; i++) {
-            switch (args[i]) {
+        for (String arg : args) {
+            switch (arg) {
                 case "--gui":
                     startingArgs.isGUI = true;
+                    break;
+                case "--no-gui":
+                    startingArgs.isGUI = false;
+                    break;
+                default:
                     break;
             }
         }

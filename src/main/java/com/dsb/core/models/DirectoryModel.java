@@ -3,7 +3,7 @@ package com.dsb.core.models;
 import java.nio.file.Path;
 
 public class DirectoryModel {
-    private Path path;
+    private final Path path;
     private long size;
 
     public DirectoryModel(Path path, long size) {

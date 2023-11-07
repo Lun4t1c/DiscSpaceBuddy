@@ -19,7 +19,7 @@ public class DsbGUIAppMain extends Application {
         stage.show();
     }
 
-    public static void main(StartingArgsContext startingArgs) {
+    public static void mainLoop(StartingArgsContext startingArgs) {
         launch();
     }
 }

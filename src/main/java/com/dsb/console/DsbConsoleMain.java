@@ -2,8 +2,6 @@ package com.dsb.console;
 
 import com.dsb.core.DsbScanner;
 import com.dsb.core.StartingArgsContext;
-import com.dsb.core.models.DirectoryModel;
-import com.dsb.core.models.FileModel;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,7 +11,7 @@ public class DsbConsoleMain {
     static DsbScanner dsbScanner;
     static Scanner scanner;
 
-    public static void main(StartingArgsContext startingArgs) {
+    public static void mainLoop(StartingArgsContext startingArgs) {
         dsbScanner = new DsbScanner();
         scanner = new Scanner(System.in);
 
@@ -52,15 +50,17 @@ public class DsbConsoleMain {
 
             System.out.printf("Done scanning (found %d files in %d folders)%n", dsbScanner.FilesList.size(), dsbScanner.DirectoriesList.size());
             System.out.print("Press ENTER to continue...");
-            System.in.read();
-        } catch (InterruptedException exc) {
+            int x = System.in.read();
+        } catch (InterruptedException e) {
             System.err.println("Scan interrupted: ");
-            exc.printStackTrace();
+            e.printStackTrace();
         }
-        catch (ExecutionException exc) {
+        catch (ExecutionException e) {
             System.err.println("ERROR: ");
-            exc.printStackTrace();
+            System.err.println("DsbConsoleMain have thrown ExecutionException, xDddd...");
+            e.printStackTrace();
         } catch (IOException e) {
+            System.err.println("DsbConsoleMain have thrown IOException, xDddd...");
             e.printStackTrace();
         }
     }
