@@ -1,7 +1,7 @@
 package com.dsb;
 
 import com.dsb.console.DsbConsoleMain;
-import com.dsb.core.StartingArgsContext;
+import com.dsb.core.utils.StartingArgsContext;
 import com.dsb.gui.DsbGUIAppMain;
 
 public class Entrypoint {

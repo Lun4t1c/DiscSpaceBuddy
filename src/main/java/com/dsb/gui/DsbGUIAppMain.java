@@ -1,6 +1,6 @@
 package com.dsb.gui;
 
-import com.dsb.core.StartingArgsContext;
+import com.dsb.core.utils.StartingArgsContext;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
