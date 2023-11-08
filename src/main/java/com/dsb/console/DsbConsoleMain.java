@@ -2,8 +2,8 @@ package com.dsb.console;
 
 import com.dsb.console.utils.DirectoryScannedListener;
 import com.dsb.core.DsbScanner;
-import com.dsb.core.utils.StartingArgsContext;
 import com.dsb.core.models.DirectoryModel;
+import com.dsb.core.utils.StartingArgsContext;
 import com.dsb.core.utils.events.IDirectoryScannedListener;
 
 import java.io.IOException;

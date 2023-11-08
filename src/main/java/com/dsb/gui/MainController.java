@@ -31,18 +31,17 @@ public class MainController {
             for (Path disc : dsbScanner.DiscsList) {
                 String diskLetter = disc.toString().substring(0, 2);
                 TreeItem<String> discTreeItem = new TreeItem<>(diskLetter);
-
                 rootItem.getChildren().add(discTreeItem);
 
                 for (DirectoryModel directory : dsbScanner.DirectoriesList) {
-                    if (!directory.getPath().startsWith(disc.toString()))
-                        continue;
-
-                    String directoryName = directory.getPath().toString().substring(3);
-                    TreeItem<String> item = new TreeItem<>(directoryName);
-
-                    if (directory.getPath().startsWith(disc.toString()))
-                        discTreeItem.getChildren().add(item);
+                    boolean s = directory.getPath().startsWith(disc.toString());
+                    if (s) {
+                        Path path = directory.getPath();
+                        String directoryName = path.toString().substring(3);
+                        TreeItem<String> item = new TreeItem<>(directoryName);
+                        if(!directoryName.isEmpty())
+                            discTreeItem.getChildren().add(item);
+                    }
                 }
             }
             tree.setRoot(rootItem);
