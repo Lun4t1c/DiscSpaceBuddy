@@ -2,6 +2,7 @@ package com.dsb.core;
 
 import com.dsb.core.models.DirectoryModel;
 import com.dsb.core.models.FileModel;
+import com.dsb.core.utils.events.DirectoryScannedEventSource;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class DsbScanner {
     public List<Path> DiscsList = new ArrayList<>();
     public List<DirectoryModel> DirectoriesList = new ArrayList<>();
     public List<FileModel> FilesList = new ArrayList<>();
+    public DirectoryScannedEventSource eventSource = new DirectoryScannedEventSource();
 
     public DsbScanner() {
 
@@ -58,6 +60,8 @@ public class DsbScanner {
             }
 
             DirectoriesList.add(newDirectory);
+            eventSource.fireEvent(newDirectory);
+
             CompletableFuture<Void> allOf = CompletableFuture.allOf(taskList.toArray(new CompletableFuture[0]));
             try {
                 allOf.get();

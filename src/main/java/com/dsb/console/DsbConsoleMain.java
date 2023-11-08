@@ -1,9 +1,10 @@
 package com.dsb.console;
 
+import com.dsb.console.utils.DirectoryScannedListener;
 import com.dsb.core.DsbScanner;
-import com.dsb.core.StartingArgsContext;
+import com.dsb.core.utils.StartingArgsContext;
 import com.dsb.core.models.DirectoryModel;
-import com.dsb.core.models.FileModel;
+import com.dsb.core.utils.events.IDirectoryScannedListener;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -12,9 +13,11 @@ import java.util.concurrent.ExecutionException;
 public class DsbConsoleMain {
     static DsbScanner dsbScanner;
     static Scanner scanner;
+    static IDirectoryScannedListener listener = new DirectoryScannedListener();
 
     public static void main(StartingArgsContext startingArgs) {
         dsbScanner = new DsbScanner();
+        dsbScanner.eventSource.addEventListener(listener);
         scanner = new Scanner(System.in);
 
         char choice;
@@ -47,7 +50,7 @@ public class DsbConsoleMain {
         try {
             dsbScanner.performFullScan().get();
             for (DirectoryModel dir : dsbScanner.DirectoriesList) {
-                System.out.println(dir.getPath() + " - " + Utils.normalizeBytesSize(dir.getSize()));
+                System.out.println(dir.getPath() + " - " + Helpers.normalizeBytesSize(dir.getSize()));
             }
 
             System.out.printf("Done scanning (found %d files in %d folders)%n", dsbScanner.FilesList.size(), dsbScanner.DirectoriesList.size());
