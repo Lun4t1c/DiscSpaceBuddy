@@ -62,7 +62,7 @@ public class DsbScanner {
             CompletableFuture<Void> allOf = CompletableFuture.allOf(taskList.toArray(new CompletableFuture[0]));
             try {
                 allOf.get();
-            } catch (InterruptedException | ExecutionException e){
+            } catch (InterruptedException | ExecutionException e) {
                 System.err.println("Scanning was interrupted, xDddd...");
                 e.printStackTrace();
             }

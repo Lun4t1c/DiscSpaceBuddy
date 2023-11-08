@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class DsbGUIAppMain extends Application {
+    public static void mainLoop(StartingArgsContext startingArgs) {
+        launch();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(DsbGUIAppMain.class.getResource("main-view.fxml"));
@@ -17,9 +21,5 @@ public class DsbGUIAppMain extends Application {
 
         stage.setScene(scene);
         stage.show();
-    }
-
-    public static void mainLoop(StartingArgsContext startingArgs) {
-        launch();
     }
 }

@@ -11,15 +11,15 @@ public class DirectoryModel {
         this.size = size;
     }
 
-    public void setSize(long size) {
-        this.size = size;
-    }
-
     public Path getPath() {
         return path;
     }
 
     public long getSize() {
         return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 }
