@@ -1,9 +1,6 @@
 package com.dsb.gui;
 
 import com.dsb.core.DsbScanner;
-
-import java.util.concurrent.CompletableFuture;
-
 import com.dsb.core.models.DirectoryModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +8,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
 import java.nio.file.Path;
+import java.util.concurrent.CompletableFuture;
 
 public class MainController {
     @FXML

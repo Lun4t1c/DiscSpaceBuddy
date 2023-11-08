@@ -2,6 +2,7 @@ package com.dsb.console;
 
 import com.dsb.core.DsbScanner;
 import com.dsb.core.StartingArgsContext;
+import com.dsb.core.models.DirectoryModel;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -54,8 +55,7 @@ public class DsbConsoleMain {
         } catch (InterruptedException e) {
             System.err.println("Scan interrupted: ");
             e.printStackTrace();
-        }
-        catch (ExecutionException e) {
+        } catch (ExecutionException e) {
             System.err.println("ERROR: ");
             System.err.println("DsbConsoleMain have thrown ExecutionException, xDddd...");
             e.printStackTrace();
