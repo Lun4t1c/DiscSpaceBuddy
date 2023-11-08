@@ -2,6 +2,7 @@ package com.dsb.core;
 
 import com.dsb.core.models.DirectoryModel;
 import com.dsb.core.models.FileModel;
+import com.dsb.core.utils.events.DirectoryScannedEventSource;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,9 +15,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class DsbScanner {
-    public final List<Path> DiscsList = new ArrayList<>();
-    public final List<DirectoryModel> DirectoriesList = new ArrayList<>();
-    public final List<FileModel> FilesList = new ArrayList<>();
+    public List<Path> DiscsList = new ArrayList<>();
+    public List<DirectoryModel> DirectoriesList = new ArrayList<>();
+    public List<FileModel> FilesList = new ArrayList<>();
+    public DirectoryScannedEventSource eventSource = new DirectoryScannedEventSource();
 
     public DsbScanner() {
 
@@ -30,7 +32,7 @@ public class DsbScanner {
             DiscsList.add(disc);
             taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(disc.toString(), false)));
 
-            for (File file : Objects.requireNonNull(new File(disc.toUri()).listFiles())) {
+            for (File file : new File(disc.toUri()).listFiles()) {
                 if (file.isDirectory()) {
                     taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(file.getPath(), false)));
                 }
@@ -59,6 +61,8 @@ public class DsbScanner {
             }
 
             DirectoriesList.add(newDirectory);
+            eventSource.fireEvent(newDirectory);
+
             CompletableFuture<Void> allOf = CompletableFuture.allOf(taskList.toArray(new CompletableFuture[0]));
             try {
                 allOf.get();

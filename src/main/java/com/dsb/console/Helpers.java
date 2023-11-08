@@ -1,6 +1,6 @@
 package com.dsb.console;
 
-public class Utils {
+public class Helpers {
     private static final long BYTES_IN_GB = 1_073_741_824;
     private static final long BYTES_IN_MB = 1_048_576;
     private static final int BYTES_IN_KB = 1_024;
