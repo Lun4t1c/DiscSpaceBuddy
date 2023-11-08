@@ -4,6 +4,7 @@ import com.dsb.core.DsbScanner;
 import com.dsb.core.models.DirectoryModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PopupControl;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
@@ -18,19 +19,18 @@ public class MainController {
 
     @FXML
     protected void onUpdateButtonClick() {
-        DsbScanner dsbScanner = new DsbScanner();
         try {
+            DsbScanner dsbScanner = new DsbScanner();
             CompletableFuture<Void> scanFuture = dsbScanner.performFullScan();
-            scanFuture.get();
-
-            TreeView<String> tree = this.tree;
-
             TreeItem<String> rootItem = new TreeItem<>("Discs");
+
             rootItem.setExpanded(true);
+            scanFuture.get();
 
             for (Path disc : dsbScanner.DiscsList) {
                 String diskLetter = disc.toString().substring(0, 2);
                 TreeItem<String> discTreeItem = new TreeItem<>(diskLetter);
+
                 rootItem.getChildren().add(discTreeItem);
 
                 for (DirectoryModel directory : dsbScanner.DirectoriesList) {
