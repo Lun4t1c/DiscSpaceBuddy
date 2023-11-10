@@ -37,15 +37,11 @@ public class MainController {
                 rootItem.getChildren().add(discTreeItem);
 
                 for (DirectoryModel directory : dsbScanner.DirectoriesList) {
-                    boolean s = directory.getPath().startsWith(disc.toString());
-
-                    if (s) {
-
+                    if (directory.getPath().startsWith(disc.toString())) {
                         Path path = directory.getPath();
                         String directoryName = path.toString().substring(3);
                         TreeItem<String> item = new TreeItem<>(directoryName);
-
-                        if (!directoryName.isEmpty())
+                        if(!directoryName.isEmpty())
                             discTreeItem.getChildren().add(item);
                     }
                 }
