@@ -4,9 +4,11 @@ import com.dsb.core.DsbScanner;
 import com.dsb.core.models.DirectoryModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.PopupControl;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.paint.Paint;
+import javafx.stage.Popup;
 
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
@@ -35,11 +37,14 @@ public class MainController {
 
                 for (DirectoryModel directory : dsbScanner.DirectoriesList) {
                     boolean s = directory.getPath().startsWith(disc.toString());
+
                     if (s) {
+
                         Path path = directory.getPath();
                         String directoryName = path.toString().substring(3);
                         TreeItem<String> item = new TreeItem<>(directoryName);
-                        if(!directoryName.isEmpty())
+
+                        if (!directoryName.isEmpty())
                             discTreeItem.getChildren().add(item);
                     }
                 }
@@ -49,7 +54,19 @@ public class MainController {
             // TODO Notify user about error in GUI
             System.err.println("Blad mordo");
             System.err.println("Something not right with mainController, xDdddd...");
+            setupErrorPopup("Blad mordo");
+            setupErrorPopup("Something not right with mainController, xDdddd...");
             e.printStackTrace();
         }
+    }
+
+    private void setupErrorPopup(String txt) {
+        Popup popup = new Popup();
+        Label label = new Label("Something not right with mainController, xDdddd...");
+        label.setStyle("-fx-background-color:white;");
+        label.setTextFill(Paint.valueOf("Red"));
+        popup.getContent().add(label);
+        popup.show(tree.getScene().getWindow());
+        popup.setAutoHide(true);
     }
 }
