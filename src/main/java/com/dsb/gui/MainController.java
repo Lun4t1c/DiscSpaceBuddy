@@ -52,7 +52,6 @@ public class MainController {
                 }
             }
             tree.setRoot(rootItem);
-            throw new Exception();
         } catch (Exception e) {
             String txt = "Blad mordo\nSomething not right with mainController, xDdddd...";
             setUpErrorPopup(txt);
