@@ -52,8 +52,9 @@ public class MainController {
                 }
             }
             tree.setRoot(rootItem);
+            throw new Exception();
         } catch (Exception e) {
-            String txt = "Blad mordo\n Something not right with mainController, xDdddd...";
+            String txt = "Blad mordo\nSomething not right with mainController, xDdddd...";
             setUpErrorPopup(txt);
             System.err.println(txt);
             e.printStackTrace();
@@ -68,7 +69,7 @@ public class MainController {
         Window window = scene.getWindow();
         Paint redPaint = Paint.valueOf("Red");
 
-        label.setStyle("-fx-background-color:white;");
+        label.setStyle("-fx-background-color:white;-fx-font-size:20px;");
         label.setTextFill(redPaint);
 
         popupContent.add(label);
