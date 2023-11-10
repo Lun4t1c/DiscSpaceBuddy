@@ -9,6 +9,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
+import javafx.stage.Window;
 
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
@@ -51,22 +52,25 @@ public class MainController {
             }
             tree.setRoot(rootItem);
         } catch (Exception e) {
-            // TODO Notify user about error in GUI
+            setUpErrorPopup("Blad mordo");
+            setUpErrorPopup("Something not right with mainController, xDdddd...");
+
             System.err.println("Blad mordo");
             System.err.println("Something not right with mainController, xDdddd...");
-            setupErrorPopup("Blad mordo");
-            setupErrorPopup("Something not right with mainController, xDdddd...");
             e.printStackTrace();
         }
     }
 
-    private void setupErrorPopup(String txt) {
+    private void setUpErrorPopup(String txt) {
         Popup popup = new Popup();
-        Label label = new Label("Something not right with mainController, xDdddd...");
+        Label label = new Label(txt);
+        Window window = tree.getScene().getWindow();
+        Paint redPaint = Paint.valueOf("Red");
+
         label.setStyle("-fx-background-color:white;");
-        label.setTextFill(Paint.valueOf("Red"));
+        label.setTextFill(redPaint);
         popup.getContent().add(label);
-        popup.show(tree.getScene().getWindow());
+        popup.show(window);
         popup.setAutoHide(true);
     }
 }
