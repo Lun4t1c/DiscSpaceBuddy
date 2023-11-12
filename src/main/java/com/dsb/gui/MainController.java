@@ -68,11 +68,16 @@ public class MainController {
         Window window = scene.getWindow();
         Paint redPaint = Paint.valueOf("Red");
 
-        label.setStyle("-fx-background-color:white;-fx-font-size:20px;");
+        label.setStyle("-fx-background-color:white;-fx-font-size:16px;");
         label.setTextFill(redPaint);
 
         popupContent.add(label);
         popup.setAutoHide(true);
+
+        popup.setX(window.getX() + 0.4f * window.getWidth());
+        popup.setY(window.getY() + 0.85f * window.getHeight());
+
+        popup.setAutoFix(true);
 
         popup.show(window);
     }
