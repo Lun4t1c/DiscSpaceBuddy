@@ -8,38 +8,32 @@
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<SplitPane xmlns:fx="http://javafx.com/fxml/1" dividerPositions="0.3109480812641084" minHeight="-Infinity"
-           minWidth="-Infinity" style="-fx-background-color: #808080;"
-           xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.dsb.gui.MainController">
+<SplitPane dividerPositions="0.3109480812641084" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dsb.gui.MainController">
     <AnchorPane>
-        <VBox prefHeight="398.0" style="-fx-background-color: #A9A9A9;" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <TreeView fx:id="tree" blendMode="DARKEN" editable="true" showRoot="false"
-                      style="-fx-background-color: #A9A9A9; -fx-text-fill: #FFFFFF;">
+        <VBox prefHeight="398.0" style="-fx-background-color: #A9A9A9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TreeView fx:id="tree" blendMode="DARKEN" editable="true" showRoot="false" style="-fx-background-color: #A9A9A9; -fx-text-fill: #FFFFFF; -fx-font-size: 20;">
                 <VBox.margin>
-                    <Insets bottom="2.0" left="4.0" right="2.0" top="2.0"/>
+                    <Insets bottom="2.0" left="4.0" right="2.0" top="2.0" />
                 </VBox.margin>
                 <padding>
-                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                 </padding>
             </TreeView>
-            <Button fx:id="updateTreeButton" alignment="CENTER" contentDisplay="CENTER"
-                    maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onUpdateButtonClick"
-                    style="-fx-background-radius: 12;" text="Update" textAlignment="CENTER" textFill="BLUE">
+            <Button fx:id="updateTreeButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onUpdateButtonClick" style="-fx-background-radius: 12;" text="Update" textAlignment="CENTER" textFill="BLUE">
                 <font>
-                    <Font name="System Bold" size="18.0"/>
+                    <Font name="System Bold" size="18.0" />
                 </font>
                 <cursor>
-                    <Cursor fx:constant="HAND"/>
+                    <Cursor fx:constant="HAND" />
                 </cursor>
                 <opaqueInsets>
-                    <Insets/>
+                    <Insets />
                 </opaqueInsets>
             </Button>
         </VBox>
     </AnchorPane>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0"/>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
     <effect>
-        <InnerShadow/>
+        <InnerShadow />
     </effect>
 </SplitPane>
