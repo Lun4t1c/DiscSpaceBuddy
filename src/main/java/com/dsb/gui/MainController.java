@@ -12,6 +12,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
+import javafx.stage.Screen;
 import javafx.stage.Window;
 
 import java.nio.file.Path;
@@ -22,6 +23,11 @@ public class MainController {
     public Button updateTreeButton;
     @FXML
     public TreeView<String> tree;
+
+    @FXML
+    public void initialize(){
+        tree.setMinHeight(0.91f * Screen.getPrimary().getVisualBounds().getHeight());
+    }
 
     @FXML
     protected void onUpdateButtonClick() {
