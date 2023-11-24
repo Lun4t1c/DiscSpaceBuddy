@@ -2,11 +2,17 @@ package com.dsb.gui;
 
 import com.dsb.core.DsbScanner;
 import com.dsb.core.models.DirectoryModel;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PopupControl;
+import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.paint.Paint;
+import javafx.stage.Popup;
+import javafx.stage.Window;
 
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
@@ -30,25 +36,49 @@ public class MainController {
             for (Path disc : dsbScanner.DiscsList) {
                 String diskLetter = disc.toString().substring(0, 2);
                 TreeItem<String> discTreeItem = new TreeItem<>(diskLetter);
+                ObservableList<TreeItem<String>> rootItemChildren = rootItem.getChildren();
 
-                rootItem.getChildren().add(discTreeItem);
+                rootItemChildren.add(discTreeItem);
 
                 for (DirectoryModel directory : dsbScanner.DirectoriesList) {
                     if (directory.getPath().startsWith(disc.toString())) {
                         Path path = directory.getPath();
                         String directoryName = path.toString().substring(3);
                         TreeItem<String> item = new TreeItem<>(directoryName);
-                        if(!directoryName.isEmpty())
+
+                        if (!directoryName.isEmpty())
                             discTreeItem.getChildren().add(item);
                     }
                 }
             }
             tree.setRoot(rootItem);
         } catch (Exception e) {
-            // TODO Notify user about error in GUI
-            System.err.println("Blad mordo");
-            System.err.println("Something not right with mainController, xDdddd...");
+            String txt = "Blad mordo\nSomething not right with mainController, xDdddd...";
+            setUpErrorPopup(txt);
+            System.err.println(txt);
             e.printStackTrace();
         }
+    }
+
+    private void setUpErrorPopup(String txt) {
+        Popup popup = new Popup();
+        ObservableList<Node> popupContent = popup.getContent();
+        Label label = new Label(txt);
+        Scene scene = tree.getScene();
+        Window window = scene.getWindow();
+        Paint redPaint = Paint.valueOf("Red");
+
+        label.setStyle("-fx-background-color:white;-fx-font-size:16px;");
+        label.setTextFill(redPaint);
+
+        popupContent.add(label);
+        popup.setAutoHide(true);
+
+        popup.setX(window.getX() + 0.4f * window.getWidth());
+        popup.setY(window.getY() + 0.85f * window.getHeight());
+
+        popup.setAutoFix(true);
+
+        popup.show(window);
     }
 }
