@@ -20,6 +20,7 @@ public class DsbGUIAppMain extends Application {
         stage.setTitle("DiscSpaceBuddy");
 
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.setMaximized(true);
         stage.show();
     }
