@@ -28,8 +28,7 @@ public class MainController {
         Screen primaryScreen = Screen.getPrimary();
         Rectangle2D visualBounds = primaryScreen.getVisualBounds();
         double screenHeight = visualBounds.getHeight();
-        double minScreenHeight = 0.91f * screenHeight;
-        tree.setMinHeight(minScreenHeight);
+        updateTreeButton.setTranslateY(0.01f * screenHeight);
     }
 
     @FXML
