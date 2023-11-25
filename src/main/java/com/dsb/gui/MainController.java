@@ -1,5 +1,6 @@
 package com.dsb.gui;
 
+import com.dsb.console.Helpers;
 import com.dsb.core.DsbScanner;
 import com.dsb.core.models.DirectoryModel;
 import javafx.collections.ObservableList;
@@ -52,7 +53,8 @@ public class MainController {
                     if (directory.getPath().startsWith(disc.toString())) {
                         Path path = directory.getPath();
                         String directoryName = path.toString().substring(3);
-                        TreeItem<String> item = new TreeItem<>(directoryName);
+                        String dirSize = Helpers.normalizeBytesSize(directory.getSize());
+                        TreeItem<String> item = new TreeItem<>(directoryName + " - " + dirSize);
 
                         if (!directoryName.isEmpty())
                             discTreeItem.getChildren().add(item);
