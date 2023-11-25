@@ -4,13 +4,11 @@ import com.dsb.core.DsbScanner;
 import com.dsb.core.models.DirectoryModel;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
 import javafx.stage.Screen;
 import javafx.stage.Window;
@@ -25,8 +23,12 @@ public class MainController {
     public TreeView<String> tree;
 
     @FXML
-    public void initialize(){
-        tree.setMinHeight(0.91f * Screen.getPrimary().getVisualBounds().getHeight());
+    public void initialize() {
+        Screen primaryScreen = Screen.getPrimary();
+        Rectangle2D visualBounds = primaryScreen.getVisualBounds();
+        double screenHeight = visualBounds.getHeight();
+        double minScreenHeight = 0.91f * screenHeight;
+        tree.setMinHeight(minScreenHeight);
     }
 
     @FXML
@@ -67,24 +69,9 @@ public class MainController {
     }
 
     private void setUpErrorPopup(String txt) {
-        Popup popup = new Popup();
-        ObservableList<Node> popupContent = popup.getContent();
-        Label label = new Label(txt);
         Scene scene = tree.getScene();
         Window window = scene.getWindow();
-        Paint redPaint = Paint.valueOf("Red");
-
-        label.setStyle("-fx-background-color:white;-fx-font-size:16px;");
-        label.setTextFill(redPaint);
-
-        popupContent.add(label);
-        popup.setAutoHide(true);
-
-        popup.setX(window.getX() + 0.4f * window.getWidth());
-        popup.setY(window.getY() + 0.85f * window.getHeight());
-
-        popup.setAutoFix(true);
-
+        Popup popup = new ErrorPopup(window,txt);
         popup.show(window);
     }
 }
