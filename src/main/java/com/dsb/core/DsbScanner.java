@@ -52,9 +52,7 @@ public class DsbScanner {
                     BasicFileAttributes attributes = Files.readAttributes(subdirectory, BasicFileAttributes.class);
                     FilesList.add(new FileModel(subdirectory, attributes.size()));
                     newDirectory.setSize(newDirectory.getSize() + attributes.size());
-                    newDirectory.addFile(new FileModel(subdirectory, attributes.size()));
                 } else if (java.nio.file.Files.isDirectory(subdirectory)) {
-                    newDirectory.addSubDirectory(new DirectoryModel(Paths.get(subdirectory.toString()), 0));
                     if (isRecursive) {
                         taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(subdirectory.toString(), true)));
                     }
