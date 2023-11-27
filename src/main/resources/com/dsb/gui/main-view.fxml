@@ -11,9 +11,9 @@
 <SplitPane dividerPositions="0.3109480812641084" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dsb.gui.MainController">
     <AnchorPane>
         <VBox style="-fx-background-color: #A9A9A9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <TreeView fx:id="tree" blendMode="DARKEN" editable="true" showRoot="false" style="-fx-background-color: #A9A9A9; -fx-text-fill: #FFFFFF; -fx-font-size: 20;">
+            <TreeView fx:id="tree" blendMode="DARKEN" editable="true" showRoot="false" style="-fx-background-color: #A9A9A9; -fx-text-fill: #FFFFFF; -fx-font-size: 20;" VBox.vgrow="ALWAYS">
                 <VBox.margin>
-                    <Insets top="2.0" />
+                    <Insets />
                 </VBox.margin>
             </TreeView>
             <Button fx:id="updateTreeButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onUpdateButtonClick" style="-fx-background-radius: 12;" text="Update" textAlignment="CENTER" textFill="BLUE">

@@ -5,13 +5,11 @@ import com.dsb.core.DsbScanner;
 import com.dsb.core.models.DirectoryModel;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.stage.Popup;
-import javafx.stage.Screen;
 import javafx.stage.Window;
 
 import java.nio.file.Path;
@@ -25,10 +23,6 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        Screen primaryScreen = Screen.getPrimary();
-        Rectangle2D visualBounds = primaryScreen.getVisualBounds();
-        double screenHeight = visualBounds.getHeight();
-        updateTreeButton.setTranslateY(0.01f * screenHeight);
     }
 
     @FXML
@@ -75,4 +69,5 @@ public class MainController {
         Popup popup = new ErrorPopup(window,txt);
         popup.show(window);
     }
+
 }
