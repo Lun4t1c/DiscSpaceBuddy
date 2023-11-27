@@ -11,12 +11,16 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
 public class DsbConsoleMain {
+    static boolean IS_VERBOSE = false;
+
     static DsbScanner dsbScanner;
     static Scanner scanner;
     static IDirectoryScannedListener listener = new DirectoryScannedListener();
 
     public static void mainLoop(StartingArgsContext startingArgs) {
-        dsbScanner = new DsbScanner();
+        parseArgs(startingArgs);
+
+        dsbScanner = new DsbScanner(startingArgs);
         dsbScanner.eventSource.addEventListener(listener);
         scanner = new Scanner(System.in);
 
@@ -49,8 +53,10 @@ public class DsbConsoleMain {
     private static void performFullScan() {
         try {
             dsbScanner.performFullScan().get();
-            for (DirectoryModel dir : dsbScanner.DirectoriesList) {
-                System.out.println(dir.getPath() + " - " + Helpers.normalizeBytesSize(dir.getSize()));
+            if (IS_VERBOSE) {
+                for (DirectoryModel dir : dsbScanner.DirectoriesList) {
+                    System.out.println(dir.getPath() + " - " + Helpers.normalizeBytesSize(dir.getSize()));
+                }
             }
 
             System.out.printf("Done scanning (found %d files in %d folders)%n", dsbScanner.FilesList.size(), dsbScanner.DirectoriesList.size());
@@ -67,5 +73,9 @@ public class DsbConsoleMain {
             System.err.println("DsbConsoleMain have thrown IOException, xDddd...");
             e.printStackTrace();
         }
+    }
+
+    private static void parseArgs(StartingArgsContext startingArgs) {
+        IS_VERBOSE = startingArgs.isVerbose;
     }
 }

@@ -2,6 +2,7 @@ package com.dsb.core;
 
 import com.dsb.core.models.DirectoryModel;
 import com.dsb.core.models.FileModel;
+import com.dsb.core.utils.StartingArgsContext;
 import com.dsb.core.utils.events.DirectoryScannedEventSource;
 
 import java.io.File;
@@ -14,6 +15,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 public class DsbScanner {
+    boolean IS_RECURSIVE = false;
+
     public List<Path> DiscsList = new ArrayList<>();
     public List<DirectoryModel> DirectoriesList = new ArrayList<>();
     public List<FileModel> FilesList = new ArrayList<>();
@@ -23,17 +26,21 @@ public class DsbScanner {
 
     }
 
+    public DsbScanner(StartingArgsContext startingArgs) {
+        IS_RECURSIVE = startingArgs.isRecursive;
+    }
+
     public CompletableFuture<Void> performFullScan() {
         FileSystem filesystem = FileSystems.getDefault();
         List<CompletableFuture<Void>> taskList = new ArrayList<>();
 
         for (Path disc : filesystem.getRootDirectories()) {
             DiscsList.add(disc);
-            taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(disc.toString(), false)));
+            taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(disc.toString())));
 
             for (File file : new File(disc.toUri()).listFiles()) {
                 if (file.isDirectory()) {
-                    taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(file.getPath(), false)));
+                    taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(file.getPath())));
                 }
             }
         }
@@ -41,7 +48,7 @@ public class DsbScanner {
         return CompletableFuture.allOf(taskList.toArray(new CompletableFuture[0]));
     }
 
-    private void ScanDirectory(String pathString, boolean isRecursive) {
+    private void ScanDirectory(String pathString) {
         List<CompletableFuture<Void>> taskList = new ArrayList<>();
         Path path = Paths.get(pathString);
         DirectoryModel newDirectory = new DirectoryModel(path, 0);
@@ -55,8 +62,8 @@ public class DsbScanner {
                     newDirectory.addFile(new FileModel(subdirectory, attributes.size()));
                 } else if (java.nio.file.Files.isDirectory(subdirectory)) {
                     newDirectory.addSubDirectory(new DirectoryModel(Paths.get(subdirectory.toString()), 0));
-                    if (isRecursive) {
-                        taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(subdirectory.toString(), true)));
+                    if (IS_RECURSIVE) {
+                        taskList.add(CompletableFuture.runAsync(() -> ScanDirectory(subdirectory.toString())));
                     }
                 }
             }
