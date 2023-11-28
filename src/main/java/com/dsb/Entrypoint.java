@@ -26,6 +26,12 @@ public class Entrypoint {
                 case "--no-gui":
                     startingArgs.isGUI = false;
                     break;
+                case "-r":
+                    startingArgs.isRecursive = true;
+                    break;
+                case "--verbose":
+                    startingArgs.isVerbose = true;
+                    break;
                 default:
                     break;
             }
